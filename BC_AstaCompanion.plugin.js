@@ -1,18 +1,20 @@
 /**
- * @name BlackAstaCompanion
- * @description Control panel + companion for the Black Asta theme: pick a palette, switch effects on/off, choose the home icon or wallpaper source, tune glass; also colours role titles, tags the title bar, and plays the Anti-Magic mention edge wave.
- * @version 1.4.0
+ * @name BC_AstaCompanion
+ * @description Control panel + companion for the Black Asta theme: pick a palette, switch effects on/off, choose the home icon or wallpaper source, tune glass; also colours role titles, tags the title bar, supports Ctrl+Scroll zoom, and plays the Anti-Magic mention edge wave.
+ * @version 1.4.1
  * @author amirabbas2556
+ * @authorId 1062758325508382770
  * @source https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord
  * @website https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord
- * @updateUrl https://raw.githubusercontent.com/AmirAbbas8585/Black-Asta-BetterDiscord/main/BlackAstaCompanion.plugin.js
+ * @updateUrl https://raw.githubusercontent.com/AmirAbbas8585/Black-Asta-BetterDiscord/main/BC_AstaCompanion.plugin.js
  */
 
-const PLUGIN_ID = "BlackAstaCompanion";
-const PLUGIN_VERSION = "1.4.0";
+const PLUGIN_ID = "BC_AstaCompanion";
+const LEGACY_PLUGIN_ID = "BlackAstaCompanion";
+const PLUGIN_VERSION = "1.4.1";
 const REPO_API_LATEST = "https://api.github.com/repos/AmirAbbas8585/Black-Asta-BetterDiscord/releases/latest";
 const RELEASES_URL = "https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord/releases";
-const STYLE_ID = "BlackAstaCompanion-panel";
+const STYLE_ID = "BC_AstaCompanion-panel";
 const GROUP_SELECTOR = '[class*="membersGroup"], [class*="members_"] h3, [class*="membersWrap"] h3, [role="list"] > h3';
 const DASH_COUNT = /\s*[\u2014\u2013-]\s*\d+\s*$/;     // "Admin — 3"  ->  "Admin"
 const PING_SIGNAL = "ab-ping-detect";
@@ -58,7 +60,9 @@ const DEFAULTS = {
 
 function loadSettings() {
     try {
-        const saved = BdApi.Data && BdApi.Data.load ? BdApi.Data.load(PLUGIN_ID, "settings") : BdApi.loadData(PLUGIN_ID, "settings");
+        const loader = BdApi.Data && BdApi.Data.load ? BdApi.Data.load : BdApi.loadData;
+        let saved = loader(PLUGIN_ID, "settings");
+        if (!saved) saved = loader(LEGACY_PLUGIN_ID, "settings");
         return Object.assign({}, DEFAULTS, saved || {});
     } catch (e) {
         return Object.assign({}, DEFAULTS);
@@ -364,7 +368,7 @@ function showToast(msg, type) {
 
 /* ---------------------------------------------------------------- plugin */
 
-module.exports = class BlackAstaCompanion {
+module.exports = class BC_AstaCompanion {
     start() {
         this.s = loadSettings();
         this.stats = { headers: 0, coloured: 0, method: "" };

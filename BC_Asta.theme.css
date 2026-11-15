@@ -2,7 +2,8 @@
  * @name Black Asta
  * @description Demon-king theme around the Black Clover artwork: liquid-glass panels, blade-cut buttons, status stripes, embers. Light on resources.
  * @author amirabbas2556
- * @version 1.8.1
+ * @authorId 1062758325508382770
+ * @version 1.8.2
  * @source https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord
  * @website https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord
  * @updateUrl https://raw.githubusercontent.com/AmirAbbas8585/Black-Asta-BetterDiscord/main/BC_Asta.theme.css
@@ -234,7 +235,7 @@ body::after  { background-image: radial-gradient(circle at 100px 120px, rgb(var(
 }
 [class*="titleBar_"] [class*="winButton"]:hover, [class*="titleBar_"] [class*="button_"]:hover { background-color: rgb(255 255 255 / .09) !important; color: rgb(var(--ab-text)) !important; }
 [class*="titleBar_"] [class*="winButtonClose"]:hover { background-color: rgb(var(--ab-red)) !important; color: #fff !important; }
-/* Markers set by the BlackAstaCompanion plugin on the real title bar and window buttons (works whatever Discord calls them) */
+/* Markers set by the BC_AstaCompanion plugin on the real title bar and window buttons (works whatever Discord calls them) */
 [data-ab="titlebar"] {
   background: linear-gradient(180deg, rgb(var(--ab-ink) / .82), rgb(var(--ab-ink) / .40)) !important;
   border-bottom: 1px solid transparent !important;
@@ -259,7 +260,7 @@ body::after  { background-image: radial-gradient(circle at 100px 120px, rgb(var(
 /* =====================================================================
    5. HOME BUTTON - your Black Clover artwork (default).
    Alternatives via <html data-ab-home="...">: "clover" = drawn gold clover, "circle" = magic circle, "default" = Discord logo.
-   The BlackAstaCompanion settings panel sets that attribute for you.
+   The BC_AstaCompanion settings panel sets that attribute for you.
    ===================================================================== */
 :root {
   /* default: your own artwork (red/black Black Clover emblem, cut out, white outline kept) */
@@ -382,7 +383,7 @@ html[data-ab-home="default"] {
   font-variant: small-caps;
 }
 [class*="containerDefault"]:hover h3 { color: rgb(var(--ab-text)) !important; }
-[class*="membersGroup"] {                              /* role titles: font + the role's own colour (set by the BlackAstaCompanion plugin) */
+[class*="membersGroup"] {                              /* role titles: font + the role's own colour (set by the BC_AstaCompanion plugin) */
   letter-spacing: .08em;
   font-variant: small-caps;
   color: var(--ab-role-color, rgb(var(--ab-text-dim))) !important;
@@ -478,7 +479,7 @@ textarea, [role="textbox"] { caret-color: rgb(var(--ab-red-hi)); }
    ANTI-MAGIC (Asta's power: it cancels other people's magic)
    - Dispel field: flashy decorations from other users are cancelled (switch: --ab-dispel).
    - Slash: the NEWEST message that mentions you is cut by a blade of light.
-   - Edge wave: with the BlackAstaCompanion plugin, a crimson wave rolls in from the window edge on that same event.
+   - Edge wave: with the BC_AstaCompanion plugin, a crimson wave rolls in from the window edge on that same event.
    ===================================================================== */
 :is(img, video)[class*="avatarDecoration"],
 [class*="nameplate"] :is(img, video, canvas),
