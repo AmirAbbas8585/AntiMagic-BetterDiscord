@@ -1,18 +1,23 @@
 /**
  * @name BlackAstaCompanion
  * @description Control panel + companion for the Black Asta theme: pick a palette, switch effects on/off, choose the home icon or wallpaper source, tune glass; also colours role titles, tags the title bar, and plays the Anti-Magic mention edge wave.
- * @version 1.3.0
+ * @version 1.4.0
  * @author amirabbas2556
  * @source https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord
  * @website https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord
+ * @updateUrl https://raw.githubusercontent.com/AmirAbbas8585/Black-Asta-BetterDiscord/main/BlackAstaCompanion.plugin.js
  */
 
 const PLUGIN_ID = "BlackAstaCompanion";
+const PLUGIN_VERSION = "1.4.0";
+const REPO_API_LATEST = "https://api.github.com/repos/AmirAbbas8585/Black-Asta-BetterDiscord/releases/latest";
+const RELEASES_URL = "https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord/releases";
 const STYLE_ID = "BlackAstaCompanion-panel";
 const GROUP_SELECTOR = '[class*="membersGroup"], [class*="members_"] h3, [class*="membersWrap"] h3, [role="list"] > h3';
 const DASH_COUNT = /\s*[\u2014\u2013-]\s*\d+\s*$/;     // "Admin — 3"  ->  "Admin"
 const PING_SIGNAL = "ab-ping-detect";
 const WAVE_ID = "ab-edge-wave";
+const ZOOM_HUD_ID = "ab-zoom-hud";
 const COOLDOWN_MS = 1500;
 const SWITCH_GRACE_MS = 1500;
 
@@ -43,6 +48,9 @@ const DEFAULTS = {
     mentionWave: true,         // crimson wave from the window edge when you are mentioned
     roleColors: true,          // role titles in the members list take the role's colour
     titleBar: true,            // let the theme style the title bar + window buttons
+    ctrlZoom: true,            // Ctrl + Scroll / Ctrl + +/-/0 browser-style zoom
+    zoom: 100,                 // % - UI zoom (60 - 180)
+    checkUpdates: true,        // check GitHub releases for updates on startup
     panelOpacity: 34,          // % - glass panels (lower = more artwork)
     blur: 6,                   // px - glass blur
     dim: 6,                    // % - dark veil over the wallpaper
@@ -103,12 +111,20 @@ function applySettings(s) {
     } else {
         root.style.removeProperty("--ab-image");
     }
+
+    const mount = document.getElementById("app-mount");
+    if (mount) {
+        const z = Math.min(180, Math.max(60, Number(s.zoom) || 100));
+        mount.style.zoom = z === 100 ? "" : (z / 100).toFixed(2);
+    }
 }
 
 function clearApplied() {
     const root = document.documentElement;
     for (const k of APPLIED_VARS) root.style.removeProperty(k);
     root.removeAttribute("data-ab-home");
+    const mount = document.getElementById("app-mount");
+    if (mount) mount.style.zoom = "";
 }
 
 /* ---------------------------------------------------------------- role colours */
@@ -277,6 +293,12 @@ const PANEL_CSS = `
 .abp button.abp-btn { padding: 8px 16px; cursor: pointer; color: #fff; border: 1px solid rgb(var(--ab-red-hi, 245 78 96) / .6);
           border-radius: 3px 14px 3px 14px; background: rgb(var(--ab-red, 214 40 57) / .25); }
 .abp button.abp-btn:hover { background: rgb(var(--ab-red, 214 40 57) / .45); }
+#ab-zoom-hud { position: fixed; top: 48px; right: 20px; z-index: 99999; pointer-events: none;
+               padding: 6px 14px; font-size: 13px; font-weight: 600; color: #fff;
+               background: rgb(10 8 13 / .88); border: 1px solid rgb(var(--ab-red-hi, 245 78 96) / .8);
+               border-radius: 3px 14px 3px 14px; box-shadow: 0 4px 16px rgb(0 0 0 / .45);
+               opacity: 0; transform: translateY(-6px); transition: opacity .16s, transform .16s; }
+#ab-zoom-hud.show { opacity: 1; transform: translateY(0); }
 `;
 
 function h(tag, props, ...kids) {
@@ -299,6 +321,23 @@ function addStyle(id, css) {
 function removeStyle(id) {
     if (BdApi.DOM && BdApi.DOM.removeStyle) BdApi.DOM.removeStyle(id);
     else BdApi.clearCSS(id);
+}
+
+function isNewerVersion(remote, local) {
+    const a = String(remote || "").replace(/^v/i, "").split(".").map(n => parseInt(n, 10) || 0);
+    const b = String(local || "").replace(/^v/i, "").split(".").map(n => parseInt(n, 10) || 0);
+    for (let i = 0; i < Math.max(a.length, b.length); i++) {
+        if ((a[i] || 0) > (b[i] || 0)) return true;
+        if ((a[i] || 0) < (b[i] || 0)) return false;
+    }
+    return false;
+}
+
+function showToast(msg, type) {
+    try {
+        const fn = BdApi.UI && BdApi.UI.showToast ? BdApi.UI.showToast : BdApi.showToast;
+        if (fn) fn(msg, { type: type || "info" });
+    } catch (e) {}
 }
 
 /* ---------------------------------------------------------------- plugin */
@@ -373,7 +412,66 @@ module.exports = class BlackAstaCompanion {
         this.observer = new MutationObserver(() => this.scheduleTick(300));
         this.observer.observe(mount, { childList: true, subtree: true });
 
+        // Browser-style Ctrl + Scroll / Ctrl + +/-/0 zoom with HUD percentage pill
+        const staleHud = document.getElementById(ZOOM_HUD_ID);
+        if (staleHud) staleHud.remove();
+        this.zoomHud = document.createElement("div");
+        this.zoomHud.id = ZOOM_HUD_ID;
+        document.body.appendChild(this.zoomHud);
+
+        this.onWheel = (e) => {
+            if (!this.s.ctrlZoom || !e.ctrlKey || !e.deltaY) return;
+            e.preventDefault();
+            const step = e.deltaY < 0 ? 5 : -5;
+            this.setZoom((Number(this.s.zoom) || 100) + step);
+        };
+        this.onKeyDown = (e) => {
+            if (!this.s.ctrlZoom || !e.ctrlKey || e.altKey || e.shiftKey) return;
+            if (e.key === "=" || e.key === "+") { e.preventDefault(); this.setZoom((Number(this.s.zoom) || 100) + 5); }
+            else if (e.key === "-") { e.preventDefault(); this.setZoom((Number(this.s.zoom) || 100) - 5); }
+            else if (e.key === "0") { e.preventDefault(); this.setZoom(100); }
+        };
+        window.addEventListener("wheel", this.onWheel, { passive: false });
+        window.addEventListener("keydown", this.onKeyDown);
+
         this.tick();
+        if (this.s.checkUpdates) {
+            this.updateTimer = setTimeout(() => this.checkForUpdates(false), 6000);
+        }
+    }
+
+    setZoom(next) {
+        const clamped = Math.min(180, Math.max(60, Math.round(next / 5) * 5));
+        this.change("zoom", clamped);
+        if (this.zoomHud) {
+            this.zoomHud.textContent = `Zoom: ${clamped}%`;
+            this.zoomHud.classList.add("show");
+            clearTimeout(this.zoomTimer);
+            this.zoomTimer = setTimeout(() => this.zoomHud && this.zoomHud.classList.remove("show"), 1200);
+        }
+    }
+
+    async checkForUpdates(manual) {
+        try {
+            const fetcher = (BdApi.Net && BdApi.Net.fetch) ? BdApi.Net.fetch : window.fetch;
+            const res = await fetcher(REPO_API_LATEST, { headers: { "Accept": "application/vnd.github+json" } });
+            if (!res || !res.ok) {
+                if (manual) showToast("Could not check GitHub releases right now.", "warning");
+                return;
+            }
+            const data = await res.json();
+            const tag = data && data.tag_name ? data.tag_name : "";
+            const themeAddon = BdApi.Themes && BdApi.Themes.get ? BdApi.Themes.get("Black Asta") : null;
+            const themeVer = themeAddon && themeAddon.version ? themeAddon.version : "1.8.1";
+            const hasUpdate = isNewerVersion(tag, themeVer) || isNewerVersion(tag, PLUGIN_VERSION);
+            if (hasUpdate) {
+                showToast(`Black Asta ${tag} is available on GitHub Releases!`, "info");
+            } else if (manual) {
+                showToast(`You are up to date (Release ${tag || PLUGIN_VERSION}).`, "success");
+            }
+        } catch (e) {
+            if (manual) showToast("Update check failed.", "error");
+        }
     }
 
     onSwitch() {
@@ -391,16 +489,24 @@ module.exports = class BlackAstaCompanion {
     stop() {
         clearTimeout(this.tickTimer);
         clearTimeout(this.saveTimer);
+        clearTimeout(this.zoomTimer);
+        clearTimeout(this.updateTimer);
         if (this.observer) {
             this.observer.disconnect();
             this.observer = null;
         }
         document.removeEventListener("scroll", this.onScroll, true);
         window.removeEventListener("resize", this.onResize);
+        window.removeEventListener("wheel", this.onWheel);
+        window.removeEventListener("keydown", this.onKeyDown);
         document.removeEventListener("animationstart", this.onAnimation, true);
         if (this.wave) {
             this.wave.remove();
             this.wave = null;
+        }
+        if (this.zoomHud) {
+            this.zoomHud.remove();
+            this.zoomHud = null;
         }
         clearTitleBar(this.title);
         for (const header of document.querySelectorAll(GROUP_SELECTOR)) paintHeader(header, "");
@@ -483,12 +589,16 @@ module.exports = class BlackAstaCompanion {
                 h("h3", {}, "Helpers"),
                 toggle("roleColors", "Role title colours", "Role titles in the members list use the server's role colour."),
                 toggle("titleBar", "Title bar styling", "Lets the theme style the top bar and the window buttons."),
+                toggle("ctrlZoom", "Ctrl + Scroll zoom", "Browser-style zoom with Ctrl + Mouse Wheel (and Ctrl + / - / 0)."),
+                slider("zoom", "UI Zoom", "Adjust Discord interface zoom level.", 60, 180, "%"),
+                toggle("checkUpdates", "Auto-check GitHub updates", "Checks GitHub Releases on startup and notifies when a new version is out."),
                 h("h3", {}, "Glass"),
                 slider("panelOpacity", "Panel opacity", "Lower shows more artwork, higher is easier to read.", 10, 70, "%"),
                 slider("blur", "Glass blur", "0 = sharp artwork behind panels, also lighter on the GPU.", 0, 20, "px"),
                 slider("dim", "Wallpaper dimming", "Dark veil over the artwork.", 0, 50, "%"),
                 h("div", { class: "abp-actions" },
                     h("button", { class: "abp-btn", onclick: () => this.triggerWave() }, "Test mention wave"),
+                    h("button", { class: "abp-btn", onclick: () => this.checkForUpdates(true) }, "Check for updates"),
                     h("button", { class: "abp-btn", onclick: () => { this.s = Object.assign({}, DEFAULTS); applySettings(this.s); saveSettings(this.s); this.tick(); render(); } }, "Reset everything to default")
                 )
             );

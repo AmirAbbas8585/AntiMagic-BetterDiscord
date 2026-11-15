@@ -1,26 +1,68 @@
 # Black Asta — BetterDiscord Theme & Companion Plugin
 
-A **Black Clover** (Anti-Magic) inspired BetterDiscord theme featuring liquid-glass panels, blade-cut buttons, status stripes, floating embers, and an optional companion plugin with live customization.
+[![BetterDiscord](https://img.shields.io/badge/BetterDiscord-Theme%20%26%20Plugin-d62839?style=for-the-badge&logo=discord&logoColor=white)](https://betterdiscord.app)
+[![GitHub Release](https://img.shields.io/github/v/release/AmirAbbas8585/Black-Asta-BetterDiscord?style=for-the-badge&color=f54e60)](https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-d9942b?style=for-the-badge)](LICENSE)
+
+A **Black Clover (Anti-Magic)** inspired BetterDiscord theme featuring liquid-glass panels, blade-cut buttons, glowing status auras, floating embers, and an optional companion plugin with live customization, browser-style zoom, and automatic GitHub update checks.
+
+---
+
+## Preview
 
 ![Wallpaper Preview](assets/wallpaper.jpg)
 
-## Included Files
+> **Screenshots:** Drop live Discord screenshots into `assets/` (e.g., `assets/preview-chat.png`, `assets/preview-settings.png`) and link them here to showcase the theme in action.
 
-- **`BC_Asta.theme.css`** — Standalone BetterDiscord theme (works on its own without any plugin).
-- **`BlackAstaCompanion.plugin.js`** — Optional companion plugin that adds:
-  - Live **Palette** switcher (`Anti-Magic`, `Wind`, `Water`, `Fire`, `Lightning`, `Dark`)
-  - **Home button icon** selector (`Black Clover artwork`, `Drawn gold clover`, `Magic circle`, `Discord logo`)
-  - **Wallpaper source** switcher (`GitHub Default`, `uupload Mirror`, or `Custom URL`)
-  - **Effects toggles**: Floating embers, Anti-Magic hover slash, Anti-Magic field (dispel decorations), and Mention edge wave
-  - **Helpers**: Server role title colouring & window title bar styling
-  - **Glass controls**: Panel opacity, blur, and wallpaper dimming sliders
+---
+
+## Features
+
+### Theme (`BC_Asta.theme.css` v1.8.1)
+- **Standalone Ready:** Works completely on its own without requiring any external plugin.
+- **Liquid-Glass UI:** Frosted, tinted sidebars, headers, and settings panes with subtle light-catching edges.
+- **Status Aura & Native Mobile Badges:** Soft glowing status ring around member/DM avatars while keeping Discord's native status & mobile phone icons intact (no avatar loading glitches).
+- **Anti-Magic Effects:**
+  - **Floating Embers:** Subtle rising crimson/gold embers over the wallpaper.
+  - **Blade-Cut Hover Slash:** A quick diagonal slash of light across buttons, server icons, and tabs.
+  - **Dispel Field:** Optionally hides flashy avatar decorations, nameplates, and profile effects.
+  - **Mention Slash & Edge Wave:** Highlights new mentions with a crimson slash (and edge wave when paired with the companion plugin).
+- **Auto-Update Support:** Includes `@updateUrl` for BetterDiscord's built-in updater.
+
+### Companion Plugin (`BlackAstaCompanion.plugin.js` v1.4.0)
+- **Live Palette Switcher:** Switch between **Anti-Magic** (Crimson), **Wind** (Green), **Water** (Blue), **Fire** (Orange), **Lightning** (Gold), and **Dark** (Violet) instantly.
+- **Home Button Icon:** Choose between Black Clover artwork, Drawn Gold Clover, Magic Circle, or default Discord logo.
+- **Wallpaper Source:** Switch between **GitHub (Default)**, **uupload Mirror**, or any **Custom HTTPS URL**.
+- **Browser-Style Zoom:** Hold `Ctrl` + Mouse Wheel (or `Ctrl` + `+` / `-` / `0`) to zoom the Discord UI between `60%` and `180%` with a floating percentage HUD.
+- **Helpers:** Automatically colours server member-list role headers to match role colours and tags the window title bar.
+- **Glass Tuning:** Real-time sliders for panel opacity, glass blur, and wallpaper dimming.
+- **GitHub Update Checker:** Automatically checks GitHub Releases for new versions (plus a manual **Check for updates** button in settings).
+
+---
 
 ## Installation
 
-1. Open Discord **Settings → BetterDiscord → Themes** (and **Plugins**).
-2. Download [`BC_Asta.theme.css`](https://raw.githubusercontent.com/AmirAbbas8585/Black-Asta-BetterDiscord/main/BC_Asta.theme.css) and place it in your BetterDiscord `themes` folder.
-3. *(Optional)* Download [`BlackAstaCompanion.plugin.js`](https://raw.githubusercontent.com/AmirAbbas8585/Black-Asta-BetterDiscord/main/BlackAstaCompanion.plugin.js) and place it in your BetterDiscord `plugins` folder.
+### Quick Install (from Releases)
+1. Download the latest `BC_Asta.theme.css` and *(optionally)* `BlackAstaCompanion.plugin.js` from the [**Releases page**](https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord/releases).
+2. Open Discord **Settings → BetterDiscord → Themes** → click **Open Themes Folder** and drop `BC_Asta.theme.css` inside.
+3. *(Optional)* Open **Settings → BetterDiscord → Plugins** → click **Open Plugins Folder** and drop `BlackAstaCompanion.plugin.js` inside.
 4. Enable **Black Asta** in Themes (and **BlackAstaCompanion** in Plugins).
+
+### Direct Raw Links
+- **Theme:** [`BC_Asta.theme.css`](https://raw.githubusercontent.com/AmirAbbas8585/Black-Asta-BetterDiscord/main/BC_Asta.theme.css)
+- **Plugin:** [`BlackAstaCompanion.plugin.js`](https://raw.githubusercontent.com/AmirAbbas8585/Black-Asta-BetterDiscord/main/BlackAstaCompanion.plugin.js)
+
+---
+
+## Shortcuts (with Companion Plugin)
+
+| Shortcut | Action |
+| :--- | :--- |
+| `Ctrl` + `Scroll Up` / `Scroll Down` | Zoom in / out (`60%` – `180%`) |
+| `Ctrl` + `+` / `Ctrl` + `-` | Zoom in / out by `5%` |
+| `Ctrl` + `0` | Reset zoom to `100%` |
+
+---
 
 ## Author
 
@@ -28,4 +70,4 @@ A **Black Clover** (Anti-Magic) inspired BetterDiscord theme featuring liquid-gl
 
 ## License
 
-MIT License — see [LICENSE](LICENSE) for details.
+Licensed under the [MIT License](LICENSE).

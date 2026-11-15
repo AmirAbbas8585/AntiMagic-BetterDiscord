@@ -2,9 +2,10 @@
  * @name Black Asta
  * @description Demon-king theme around the Black Clover artwork: liquid-glass panels, blade-cut buttons, status stripes, embers. Light on resources.
  * @author amirabbas2556
- * @version 1.8.0
+ * @version 1.8.1
  * @source https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord
  * @website https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord
+ * @updateUrl https://raw.githubusercontent.com/AmirAbbas8585/Black-Asta-BetterDiscord/main/BC_Asta.theme.css
  */
 
 /* Optional: Apple emoji. Uncomment the line below (or swap "Apple" for another provider) if you want it. */
@@ -387,43 +388,42 @@ html[data-ab-home="default"] {
   color: var(--ab-role-color, rgb(var(--ab-text-dim))) !important;
 }
 
-/* STATUS STRIPES: a thin bar on the left of every member / DM / friend row, coloured by status.
-   Offline people also get a desaturated avatar. */
+/* STATUS AURA: subtle glowing ring around avatars + Discord's native status/mobile badge kept intact
+   so avatars always load reliably and mobile icons never break. */
 :is([class*="member_"], [class*="peopleListItem"], [data-list-item-id^="private-channels"]) {
   position: relative;
   border-radius: 2px 12px 2px 12px;
   transition: background-color var(--ab-speed);
 }
-:is([class*="member_"], [class*="peopleListItem"], [data-list-item-id^="private-channels"])::before {
-  content: "";
-  position: absolute; left: 0; top: 22%; bottom: 22%;
-  width: 3px; border-radius: 3px;
-  background: var(--ab-st, transparent);
-  pointer-events: none;
-}
-:is([class*="member_"], [class*="peopleListItem"], [data-list-item-id^="private-channels"]):has(rect[mask*="status-online"])    { --ab-st: rgb(var(--ab-online)); }
-:is([class*="member_"], [class*="peopleListItem"], [data-list-item-id^="private-channels"]):has(rect[mask*="status-idle"])      { --ab-st: rgb(var(--ab-idle)); }
-:is([class*="member_"], [class*="peopleListItem"], [data-list-item-id^="private-channels"]):has(rect[mask*="status-dnd"])       { --ab-st: rgb(var(--ab-dnd)); }
-:is([class*="member_"], [class*="peopleListItem"], [data-list-item-id^="private-channels"]):has(rect[mask*="status-streaming"]) { --ab-st: rgb(var(--ab-stream)); }
-:is([class*="member_"], [class*="peopleListItem"], [data-list-item-id^="private-channels"]):has(rect[mask*="status-offline"])   { --ab-st: rgb(var(--ab-offline) / .45); }
-/* offline: only a light desaturation, not a dead grey */
-:is([class*="member_"], [class*="peopleListItem"], [data-list-item-id^="private-channels"]):has(rect[mask*="status-offline"]) img { filter: grayscale(.3); }
-[class*="member_"][class*="offline"] { opacity: .6 !important; }
-
-/* the stripe already shows the status, so Discord's own dot on these avatars is hidden
-   (and the little round notch it cut out of the avatar is removed) */
-:is([class*="member_"], [class*="peopleListItem"], [data-list-item-id^="private-channels"]) rect[mask*="status-"] { display: none !important; }
-:is([class*="member_"], [class*="peopleListItem"], [data-list-item-id^="private-channels"]) foreignObject[mask*="avatar-status"] { mask: none !important; -webkit-mask: none !important; }
-:is([class*="member_"], [class*="peopleListItem"], [data-list-item-id^="private-channels"]) foreignObject[mask*="avatar-status"] img { border-radius: 50% !important; }
 :is([class*="member_"], [class*="peopleListItem"], [data-list-item-id^="private-channels"]):hover { background: rgb(255 255 255 / .06) !important; }
 
-/* the status dots themselves: new colours + a soft glow */
-rect[mask*="status-online"]    { fill: rgb(var(--ab-online)) !important; }
+:is([class*="member_"], [class*="peopleListItem"], [data-list-item-id^="private-channels"]) [class*="avatar_"],
+:is([class*="member_"], [class*="peopleListItem"], [data-list-item-id^="private-channels"]) [class*="wrapper_"]:has(svg foreignObject) {
+  border-radius: 50%;
+  transition: box-shadow var(--ab-speed);
+}
+:is([class*="member_"], [class*="peopleListItem"], [data-list-item-id^="private-channels"]):has([mask*="status-online"], [mask*="status-mobile"]) [class*="avatar_"] {
+  box-shadow: 0 0 0 1.5px rgb(var(--ab-online) / .65), 0 0 8px rgb(var(--ab-online) / .28);
+}
+:is([class*="member_"], [class*="peopleListItem"], [data-list-item-id^="private-channels"]):has([mask*="status-idle"]) [class*="avatar_"] {
+  box-shadow: 0 0 0 1.5px rgb(var(--ab-idle) / .65), 0 0 8px rgb(var(--ab-idle) / .22);
+}
+:is([class*="member_"], [class*="peopleListItem"], [data-list-item-id^="private-channels"]):has([mask*="status-dnd"]) [class*="avatar_"] {
+  box-shadow: 0 0 0 1.5px rgb(var(--ab-dnd) / .65), 0 0 8px rgb(var(--ab-dnd) / .25);
+}
+:is([class*="member_"], [class*="peopleListItem"], [data-list-item-id^="private-channels"]):has([mask*="status-streaming"]) [class*="avatar_"] {
+  box-shadow: 0 0 0 1.5px rgb(var(--ab-stream) / .75), 0 0 10px rgb(var(--ab-stream) / .35);
+}
+:is([class*="member_"], [class*="peopleListItem"], [data-list-item-id^="private-channels"]):has([mask*="status-offline"]) img { filter: grayscale(.3); }
+[class*="member_"][class*="offline"] { opacity: .6 !important; }
+
+/* the status dots & mobile icons themselves: new colours + a soft glow */
+rect[mask*="status-online"], rect[mask*="status-mobile"] { fill: rgb(var(--ab-online)) !important; }
 rect[mask*="status-idle"]      { fill: rgb(var(--ab-idle)) !important; }
 rect[mask*="status-dnd"]       { fill: rgb(var(--ab-dnd)) !important; }
 rect[mask*="status-offline"]   { fill: rgb(var(--ab-offline)) !important; }
 rect[mask*="status-streaming"] { fill: rgb(var(--ab-stream)) !important; }
-rect[mask*="status-online"], rect[mask*="status-dnd"] { filter: drop-shadow(0 0 2px currentColor); }
+rect[mask*="status-online"], rect[mask*="status-mobile"], rect[mask*="status-dnd"] { filter: drop-shadow(0 0 2px currentColor); }
 
 [class*="avatarSpeaking"] { box-shadow: 0 0 0 2px rgb(var(--ab-red-hi)), 0 0 10px rgb(var(--ab-red) / .6) !important; }
 
