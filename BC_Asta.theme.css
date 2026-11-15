@@ -1,12 +1,12 @@
 /**
- * @name Black Asta
+ * @name Anti-Magic Asta
  * @description Demon-king theme around the Black Clover artwork: liquid-glass panels, blade-cut buttons, status stripes, embers. Light on resources.
  * @author amirabbas2556
  * @authorId 1062758325508382770
  * @version 1.8.2
- * @source https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord
- * @website https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord
- * @updateUrl https://raw.githubusercontent.com/AmirAbbas8585/Black-Asta-BetterDiscord/main/BC_Asta.theme.css
+ * @source https://github.com/AmirAbbas8585/AntiMagic-BetterDiscord
+ * @website https://github.com/AmirAbbas8585/AntiMagic-BetterDiscord
+ * @updateUrl https://raw.githubusercontent.com/AmirAbbas8585/AntiMagic-BetterDiscord/main/BC_Asta.theme.css
  */
 
 /* Optional: Apple emoji. Uncomment the line below (or swap "Apple" for another provider) if you want it. */
@@ -17,7 +17,7 @@
    Colours are space-separated R G B so alpha can be added anywhere:  rgb(var(--ab-red) / .5)
    ===================================================================== */
 :root {
-  --ab-image: url("https://raw.githubusercontent.com/AmirAbbas8585/Black-Asta-BetterDiscord/main/assets/wallpaper.jpg");
+  --ab-image: url("https://raw.githubusercontent.com/AmirAbbas8585/AntiMagic-BetterDiscord/main/assets/wallpaper.jpg");
 
   /* palette: neutral near-black base, red is kept for accents only (easier on the eyes) */
   --ab-ink:      10 8 13;

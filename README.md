@@ -1,14 +1,14 @@
 <div align="center">
 
-<img src="assets/preview.jpg" alt="Black Asta BetterDiscord Theme Preview" width="860" style="border-radius: 14px;" />
+<img src="assets/preview.jpg" alt="Anti-Magic Asta BetterDiscord Theme Preview" width="860" style="border-radius: 14px;" />
 
-# ⚔️ Black Asta — BetterDiscord Theme & Companion
+# ⚔️ Anti-Magic Asta — BetterDiscord Theme & Companion
 
 *Demon-king liquid-glass aesthetic inspired by **Black Clover (Anti-Magic)** — light on resources, built for modern Discord.*
 
 <p>
-  <a href="https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord/releases/latest">
-    <img src="https://img.shields.io/github/v/release/AmirAbbas8585/Black-Asta-BetterDiscord?style=for-the-badge&color=d62839&label=Release" alt="Latest Release" />
+  <a href="https://github.com/AmirAbbas8585/AntiMagic-BetterDiscord/releases/latest">
+    <img src="https://img.shields.io/github/v/release/AmirAbbas8585/AntiMagic-BetterDiscord?style=for-the-badge&color=d62839&label=Release" alt="Latest Release" />
   </a>
   <a href="https://betterdiscord.app">
     <img src="https://img.shields.io/badge/BetterDiscord-Theme%20%26%20Plugin-f54e60?style=for-the-badge&logo=discord&logoColor=white" alt="BetterDiscord" />
@@ -19,11 +19,11 @@
 </p>
 
 <p>
-  <a href="https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord/releases/latest">⬇️ Download Latest Release</a>
+  <a href="https://github.com/AmirAbbas8585/AntiMagic-BetterDiscord/releases/latest">⬇️ Download Latest Release</a>
   &nbsp;·&nbsp;
-  <a href="https://raw.githubusercontent.com/AmirAbbas8585/Black-Asta-BetterDiscord/main/BC_Asta.theme.css">🎨 Raw Theme</a>
+  <a href="https://raw.githubusercontent.com/AmirAbbas8585/AntiMagic-BetterDiscord/main/BC_Asta.theme.css">🎨 Raw Theme</a>
   &nbsp;·&nbsp;
-  <a href="https://raw.githubusercontent.com/AmirAbbas8585/Black-Asta-BetterDiscord/main/BC_AstaCompanion.plugin.js">🧩 Raw Companion Plugin</a>
+  <a href="https://raw.githubusercontent.com/AmirAbbas8585/AntiMagic-BetterDiscord/main/BC_AstaCompanion.plugin.js">🧩 Raw Companion Plugin</a>
 </p>
 
 </div>
@@ -56,10 +56,10 @@ Switch palettes live from **BC_AstaCompanion** settings (or tweak CSS variables 
 
 ## 🚀 Installation
 
-1. Download **`BC_Asta.theme.css`** and *(optionally)* **`BC_AstaCompanion.plugin.js`** from the [**Releases page**](https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord/releases/latest).
+1. Download **`BC_Asta.theme.css`** and *(optionally)* **`BC_AstaCompanion.plugin.js`** from the [**Releases page**](https://github.com/AmirAbbas8585/AntiMagic-BetterDiscord/releases/latest).
 2. Open Discord **Settings → BetterDiscord → Themes** → click **Open Themes Folder** and drop `BC_Asta.theme.css` inside.
 3. *(Optional)* Open **Settings → BetterDiscord → Plugins** → click **Open Plugins Folder** and drop `BC_AstaCompanion.plugin.js` inside.
-4. Enable **Black Asta** in Themes (and **BC_AstaCompanion** in Plugins).
+4. Enable **Anti-Magic Asta** in Themes (and **BC_AstaCompanion** in Plugins).
 
 ---
 
@@ -75,7 +75,7 @@ Switch palettes live from **BC_AstaCompanion** settings (or tweak CSS variables 
 <summary>🖼️ Default Wallpaper Artwork</summary>
 
 <p align="center">
-  <img src="assets/wallpaper.jpg" alt="Black Asta Wallpaper" width="720" />
+  <img src="assets/wallpaper.jpg" alt="Anti-Magic Asta Wallpaper" width="720" />
 </p>
 
 </details>

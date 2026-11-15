@@ -1,19 +1,19 @@
 /**
  * @name BC_AstaCompanion
- * @description Control panel + companion for the Black Asta theme: pick a palette, switch effects on/off, choose the home icon or wallpaper source, tune glass; also colours role titles, tags the title bar, supports Ctrl+Scroll zoom, and plays the Anti-Magic mention edge wave.
+ * @description Control panel + companion for the Anti-Magic Asta theme: pick a palette, switch effects on/off, choose the home icon or wallpaper source, tune glass; also colours role titles, tags the title bar, supports Ctrl+Scroll zoom, and plays the Anti-Magic mention edge wave.
  * @version 1.4.1
  * @author amirabbas2556
  * @authorId 1062758325508382770
- * @source https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord
- * @website https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord
- * @updateUrl https://raw.githubusercontent.com/AmirAbbas8585/Black-Asta-BetterDiscord/main/BC_AstaCompanion.plugin.js
+ * @source https://github.com/AmirAbbas8585/AntiMagic-BetterDiscord
+ * @website https://github.com/AmirAbbas8585/AntiMagic-BetterDiscord
+ * @updateUrl https://raw.githubusercontent.com/AmirAbbas8585/AntiMagic-BetterDiscord/main/BC_AstaCompanion.plugin.js
  */
 
 const PLUGIN_ID = "BC_AstaCompanion";
 const LEGACY_PLUGIN_ID = "BlackAstaCompanion";
 const PLUGIN_VERSION = "1.4.1";
-const REPO_API_LATEST = "https://api.github.com/repos/AmirAbbas8585/Black-Asta-BetterDiscord/releases/latest";
-const RELEASES_URL = "https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord/releases";
+const REPO_API_LATEST = "https://api.github.com/repos/AmirAbbas8585/AntiMagic-BetterDiscord/releases/latest";
+const RELEASES_URL = "https://github.com/AmirAbbas8585/AntiMagic-BetterDiscord/releases";
 const STYLE_ID = "BC_AstaCompanion-panel";
 const GROUP_SELECTOR = '[class*="membersGroup"], [class*="members_"] h3, [class*="membersWrap"] h3, [role="list"] > h3';
 const DASH_COUNT = /\s*[\u2014\u2013-]\s*\d+\s*$/;     // "Admin — 3"  ->  "Admin"
@@ -24,7 +24,7 @@ const COOLDOWN_MS = 1500;
 const SWITCH_GRACE_MS = 1500;
 
 const WALLPAPERS = {
-    github:  "https://raw.githubusercontent.com/AmirAbbas8585/Black-Asta-BetterDiscord/main/assets/wallpaper.jpg",
+    github:  "https://raw.githubusercontent.com/AmirAbbas8585/AntiMagic-BetterDiscord/main/assets/wallpaper.jpg",
     uupload: "https://s50.uupload.ir/files/amirabbas8585/amirabbas/better/new.jpg",
 };
 
@@ -487,11 +487,11 @@ module.exports = class BC_AstaCompanion {
             }
             const data = await res.json();
             const tag = data && data.tag_name ? data.tag_name : "";
-            const themeAddon = BdApi.Themes && BdApi.Themes.get ? BdApi.Themes.get("Black Asta") : null;
+            const themeAddon = BdApi.Themes && BdApi.Themes.get ? BdApi.Themes.get("Anti-Magic Asta") : null;
             const themeVer = themeAddon && themeAddon.version ? themeAddon.version : "1.8.1";
             const hasUpdate = isNewerVersion(tag, themeVer) || isNewerVersion(tag, PLUGIN_VERSION);
             if (hasUpdate) {
-                showToast(`Black Asta ${tag} is available on GitHub Releases!`, "info");
+                showToast(`Anti-Magic Asta ${tag} is available on GitHub Releases!`, "info");
             } else if (manual) {
                 showToast(`You are up to date (Release ${tag || PLUGIN_VERSION}).`, "success");
             }
@@ -600,7 +600,7 @@ module.exports = class BC_AstaCompanion {
             }
 
             root.append(
-                h("h2", {}, "Black Asta"),
+                h("h2", {}, "Anti-Magic Asta"),
                 h("div", { class: "abp-sub" }, "Everything here applies instantly and is remembered."),
                 h("h3", {}, "Palette"),
                 h("div", { class: "abp-sub" }, "Anti-Magic is Asta's own look. The others \"borrow\" a friend's magic attribute."),
