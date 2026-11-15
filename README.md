@@ -18,13 +18,13 @@ A **Black Clover** (Anti-Magic) inspired BetterDiscord theme featuring liquid-gl
 ## Installation
 
 1. Open Discord **Settings → BetterDiscord → Themes** (and **Plugins**).
-2. Download [`BC_Asta.theme.css`](https://raw.githubusercontent.com/TV8569/Black-Asta-BetterDiscord/main/BC_Asta.theme.css) and place it in your BetterDiscord `themes` folder.
-3. *(Optional)* Download [`BlackAstaCompanion.plugin.js`](https://raw.githubusercontent.com/TV8569/Black-Asta-BetterDiscord/main/BlackAstaCompanion.plugin.js) and place it in your BetterDiscord `plugins` folder.
+2. Download [`BC_Asta.theme.css`](https://raw.githubusercontent.com/AmirAbbas8585/Black-Asta-BetterDiscord/main/BC_Asta.theme.css) and place it in your BetterDiscord `themes` folder.
+3. *(Optional)* Download [`BlackAstaCompanion.plugin.js`](https://raw.githubusercontent.com/AmirAbbas8585/Black-Asta-BetterDiscord/main/BlackAstaCompanion.plugin.js) and place it in your BetterDiscord `plugins` folder.
 4. Enable **Black Asta** in Themes (and **BlackAstaCompanion** in Plugins).
 
 ## Author
 
-- **amirabbas2556** — GitHub: [@TV8569](https://github.com/TV8569)
+- **amirabbas2556** — GitHub: [@AmirAbbas8585](https://github.com/AmirAbbas8585)
 
 ## License
 

@@ -3,8 +3,8 @@
  * @description Control panel + companion for the Black Asta theme: pick a palette, switch effects on/off, choose the home icon or wallpaper source, tune glass; also colours role titles, tags the title bar, and plays the Anti-Magic mention edge wave.
  * @version 1.3.0
  * @author amirabbas2556
- * @source https://github.com/TV8569/Black-Asta-BetterDiscord
- * @website https://github.com/TV8569/Black-Asta-BetterDiscord
+ * @source https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord
+ * @website https://github.com/AmirAbbas8585/Black-Asta-BetterDiscord
  */
 
 const PLUGIN_ID = "BlackAstaCompanion";
@@ -17,7 +17,7 @@ const COOLDOWN_MS = 1500;
 const SWITCH_GRACE_MS = 1500;
 
 const WALLPAPERS = {
-    github:  "https://raw.githubusercontent.com/TV8569/Black-Asta-BetterDiscord/main/assets/wallpaper.jpg",
+    github:  "https://raw.githubusercontent.com/AmirAbbas8585/Black-Asta-BetterDiscord/main/assets/wallpaper.jpg",
     uupload: "https://s50.uupload.ir/files/amirabbas8585/amirabbas/better/new.jpg",
 };
 
