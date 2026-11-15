@@ -10,9 +10,14 @@ A **Black Clover (Anti-Magic)** inspired BetterDiscord theme featuring liquid-gl
 
 ## Preview
 
+![Black Asta Discord Preview](assets/preview.jpg)
+
+<details>
+<summary>Default Wallpaper Artwork</summary>
+
 ![Wallpaper Preview](assets/wallpaper.jpg)
 
-> **Screenshots:** Drop live Discord screenshots into `assets/` (e.g., `assets/preview-chat.png`, `assets/preview-settings.png`) and link them here to showcase the theme in action.
+</details>
 
 ---
 

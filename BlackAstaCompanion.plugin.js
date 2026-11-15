@@ -112,19 +112,41 @@ function applySettings(s) {
         root.style.removeProperty("--ab-image");
     }
 
+    applyZoom(s.zoom);
+}
+
+function applyZoom(zoomPct) {
+    const z = Math.min(180, Math.max(60, Number(zoomPct) || 100));
+    const factor = z / 100;
     const mount = document.getElementById("app-mount");
-    if (mount) {
-        const z = Math.min(180, Math.max(60, Number(s.zoom) || 100));
-        mount.style.zoom = z === 100 ? "" : (z / 100).toFixed(2);
-    }
+    if (mount) mount.style.zoom = "";
+
+    try {
+        const electron = typeof require === "function" ? require("electron") : null;
+        if (electron && electron.webFrame && typeof electron.webFrame.setZoomFactor === "function") {
+            electron.webFrame.setZoomFactor(factor);
+            document.documentElement.style.zoom = "";
+            return;
+        }
+    } catch (e) {}
+
+    try {
+        const zoomMod = BdApi.Webpack && BdApi.Webpack.getByKeys ? BdApi.Webpack.getByKeys("setZoomFactor") : null;
+        if (zoomMod && typeof zoomMod.setZoomFactor === "function") {
+            zoomMod.setZoomFactor(z);
+            document.documentElement.style.zoom = "";
+            return;
+        }
+    } catch (e) {}
+
+    document.documentElement.style.zoom = z === 100 ? "" : factor.toFixed(2);
 }
 
 function clearApplied() {
     const root = document.documentElement;
     for (const k of APPLIED_VARS) root.style.removeProperty(k);
     root.removeAttribute("data-ab-home");
-    const mount = document.getElementById("app-mount");
-    if (mount) mount.style.zoom = "";
+    applyZoom(100);
 }
 
 /* ---------------------------------------------------------------- role colours */
